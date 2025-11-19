@@ -1,0 +1,87 @@
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #343a40;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.btn-logout {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-logout:hover {
+  background-color: #c82333;
+}
+
+/* Contenido */
+.main-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: #333;
+}
+
+/* Grilla de tarjetas */
+.grid-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsivo automático */
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none; /* Para que no parezca link azul */
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  border-bottom: 4px solid #007bff;
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  margin: 0.5rem 0;
+  color: #007bff;
+}
+
+.card p {
+  color: #6c757d;
+  font-size: 0.9rem;
+}

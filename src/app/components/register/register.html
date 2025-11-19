@@ -1,1 +1,42 @@
-<p>register works!</p>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Crear Cuenta</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="reg-username">Usuario</label>
+        <input 
+          type="text" 
+          id="reg-username" 
+          formControlName="username" 
+          placeholder="Elige un usuario"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="reg-password">Contraseña</label>
+        <input 
+          type="password" 
+          id="reg-password" 
+          formControlName="password" 
+          placeholder="Elige una contraseña"
+        >
+      </div>
+
+      <div *ngIf="errorMessage" class="alert-error">
+        {{ errorMessage }}
+      </div>
+      
+      <div *ngIf="successMessage" class="alert-success">
+        {{ successMessage }}
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+
+      <div class="switch-auth">
+        <p>¿Ya tienes cuenta? <a routerLink="/login">Ingresa aquí</a></p>
+      </div>
+    </form>
+  </div>
+</div>

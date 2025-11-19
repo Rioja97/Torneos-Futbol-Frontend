@@ -1,0 +1,41 @@
+<div class="dashboard-container">
+  
+  <header class="navbar">
+    <h1>🏆 Gestión de Torneos</h1>
+    <div class="user-info">
+      <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h2>Bienvenido al Panel de Control</h2>
+    <p>Selecciona una sección para comenzar a administrar.</p>
+
+    <div class="grid-menu">
+      
+      <div class="card" routerLink="/equipos">
+        <div class="icon">⚽</div>
+        <h3>Equipos</h3>
+        <p>Ver, crear y editar equipos.</p>
+      </div>
+
+      <div class="card" routerLink="/jugadores"> <div class="icon">Cc</div>
+        <h3>Jugadores</h3>
+        <p>Gestionar la lista de jugadores.</p>
+      </div>
+
+      <div class="card" routerLink="/torneos">
+        <div class="icon">🏆</div>
+        <h3>Torneos</h3>
+        <p>Organizar nuevos campeonatos.</p>
+      </div>
+
+      <div class="card" routerLink="/estadisticas">
+        <div class="icon">📊</div>
+        <h3>Estadísticas</h3>
+        <p>Ver el rendimiento general.</p>
+      </div>
+
+    </div>
+  </main>
+</div>

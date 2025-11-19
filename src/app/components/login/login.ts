@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { response, Router } from 'express';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth';
 import { AuthResponseDTO } from '../../models/auth-response.dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -23,7 +24,7 @@ export class Login {
   ){
     this.loginForm = this.fb.group({
       username: ["", [Validators.required]],
-      psasword: ["", [Validators.required]],
+      password: ["", [Validators.required]],
     });
   }
 
@@ -42,6 +43,8 @@ export class Login {
         if(response.token){
           localStorage.setItem('authToken', response.token);
         }
+
+        this.router.navigate(['/home']);
       }, error: (err: HttpErrorResponse) => {
         if(err.status === 401){
           this.errorMessage = "Credenciales inválidas, intente nuevamente";

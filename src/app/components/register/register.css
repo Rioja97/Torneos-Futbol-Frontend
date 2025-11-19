@@ -1,0 +1,106 @@
+/* Contenedor para centrar en toda la pantalla */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Altura completa de la ventana */
+  background-color: #f0f2f5; /* Un gris muy clarito de fondo */
+}
+
+/* La tarjeta blanca */
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px; /* Que no sea gigante */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #666;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Importante para el padding */
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: #007bff; /* Azul al hacer clic */
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Mensajes de alerta */
+.alert-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.switch-auth {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.switch-auth a {
+  color: #007bff;
+  text-decoration: none;
+}

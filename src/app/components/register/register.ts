@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-import { Auth } from '../../services/auth';
+import { AuthService } from '../../services/authService';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class Register {
 
   constructor(
     private fb: FormBuilder,
-    private authService: Auth,
+    private authService: AuthService,
     private router: Router
   ){
     this.registerForm = this.fb.group({

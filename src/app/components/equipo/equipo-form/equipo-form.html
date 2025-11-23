@@ -26,6 +26,10 @@
         <input type="number" id="capacidadEstadio" formControlName="capacidadEstadio">
       </div>
 
+      <div *ngIf="errorMessage" class="alert-error">
+  ⚠️    {{ errorMessage }}
+      </div>
+
       <div class="actions">
         <button type="button" class="btn-cancel" routerLink="/equipos">Cancelar</button>
         

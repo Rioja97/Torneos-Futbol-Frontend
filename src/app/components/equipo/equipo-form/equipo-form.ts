@@ -13,6 +13,7 @@ import { EquipoService } from '../../../services/equipo-service';
 })
 export class EquipoForm {
 
+  errorMessage: string | null = null;
   equipoForm: FormGroup;
   isSubmitting = false;
 
@@ -65,6 +66,7 @@ export class EquipoForm {
     if(this.equipoForm.invalid || this.isSubmitting) return;
 
     this.isSubmitting = true;
+    this.errorMessage = null; // 1. Limpiamos errores viejos
     const equipoParaEnviar = {
       nombre: this.equipoForm.value.nombre,
       ciudad: this.equipoForm.value.ciudad,
@@ -84,6 +86,11 @@ export class EquipoForm {
         error: (err) => {
           console.error(err);
           this.isSubmitting = false;
+          if (err.error && err.error.message) {
+            this.errorMessage = err.error.message;
+          } else {
+            this.errorMessage = 'Ocurrió un error inesperado. Intente nuevamente.';
+          }
         }
       });
     } else {

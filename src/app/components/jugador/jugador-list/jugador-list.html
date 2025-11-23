@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Gestión de Jugadores</h2>
+    <button class="btn-create" routerLink="/jugadores/nuevo">+ Nuevo Jugador</button>
+  </div>
+
+  <table class="tabla-equipos"> <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Posición</th>
+        <th>Dorsal</th>
+        <th>Equipo</th> <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let j of jugadores">
+        <td>{{ j.id }}</td>
+        <td>{{ j.nombre }}</td>
+        <td>{{ j.posicion }}</td>
+        <td>{{ j.dorsal }}</td>
+        
+        <td>{{ j.equipo?.nombre || j.nombreEquipo || 'Sin Equipo' }}</td>
+
+        <td class="actions-cell">
+          <button class="btn-edit" (click)="editarJugador(j.id!)">✏️</button>
+          <button class="btn-delete" (click)="eliminarJugador(j.id!)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div *ngIf="jugadores.length === 0" class="empty-state">
+    <p>No hay jugadores cargados.</p>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="form-container">
+  <div class="card">
+    <h2>{{ isEditing ? 'Editar Jugador' : 'Registrar Nuevo Jugador' }}</h2>
+    
+    <form [formGroup]="jugadorForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" formControlName="nombre" placeholder="Ej: Lionel Messi">
+      </div>
+
+      <div class="row-group">
+        <div class="form-group half">
+            <label>Edad</label>
+            <input type="number" formControlName="edad">
+        </div>
+        <div class="form-group half">
+            <label>Dorsal (N°)</label>
+            <input type="number" formControlName="dorsal">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Posición</label>
+        <select formControlName="posicion">
+            <option value="">Selecciona una posición</option>
+            <option value="Arquero">Arquero</option>
+            <option value="Defensor">Defensor</option>
+            <option value="Mediocampista">Mediocampista</option>
+            <option value="Delantero">Delantero</option>
+        </select>
+      </div>
+
+      <hr>
+
+      <div class="form-group">
+        <label>Equipo Actual</label>
+        
+        <select formControlName="equipoId">
+            <option [ngValue]="null">Seleccione un equipo...</option>
+            
+            <option *ngFor="let e of equipos" [value]="e.id">
+                {{ e.nombre }}
+            </option>
+        </select>
+        
+        <div class="error-text" *ngIf="jugadorForm.get('equipoId')?.touched && jugadorForm.get('equipoId')?.invalid">
+            Debes asignar un equipo.
+        </div>
+      </div>
+      <div *ngIf="errorMessage" class="alert-error">
+  ⚠️    {{ errorMessage }}
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cancel" routerLink="/home">Cancelar</button>
+        <button type="submit" class="btn-save" [disabled]="jugadorForm.invalid || isSubmitting">
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { Register } from './components/register/register';
 import { Home } from './components/home/home';
 import { EquipoForm } from './components/equipo/equipo-form/equipo-form';
 import { EquiposList } from './components/equipo/equipo-list/equipo-list';
+import { JugadorForm } from './components/jugador/jugador-form/jugador-form';
+import { JugadorList } from './components/jugador/jugador-list/jugador-list';
 
 export const routes: Routes = [
     {
@@ -33,6 +35,21 @@ export const routes: Routes = [
     {
         path: "equipos/editar/:id",
         component: EquipoForm,
+        canActivate: [authGuard]
+    },
+    {
+        path: "jugadores/nuevo",
+        component: JugadorForm,
+        canActivate: [authGuard]
+    },
+    {
+        path: "jugadores/editar/:id",
+        component: JugadorForm,
+        canActivate: [authGuard]
+    },
+    {
+        path: "jugadores",
+        component: JugadorList,
         canActivate: [authGuard]
     },
 

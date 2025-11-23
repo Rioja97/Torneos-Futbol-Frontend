@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Gestión de Torneos</h2>
+    <button class="btn-create" routerLink="/torneos/nuevo">
+      + Nuevo Torneo
+    </button>
+  </div>
+
+  <table class="tabla-equipos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>División</th>
+        <th>Cupo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let t of torneos">
+        <td>{{ t.id }}</td>
+        <td>{{ t.nombre }}</td>
+        <td>{{ t.division }}</td>
+        <td>{{ t.cupo }}</td>
+        <td>
+          <button class="btn-edit" (click)="editarTorneo(t.id!)">✏️</button>
+          <button class="btn-delete" (click)="eliminarTorneo(t.id!)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="torneos.length === 0" class="empty-state">
+    No hay torneos registrados.
+  </div>
+</div>

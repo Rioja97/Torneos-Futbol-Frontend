@@ -1,0 +1,37 @@
+<div class="form-container">
+  <div class="card">
+    <h2>{{ isEditing ? 'Editar Torneo' : 'Registrar Torneo' }}</h2>
+
+    <form [formGroup]="torneoForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Nombre del torneo</label>
+        <input type="text" formControlName="nombre">
+      </div>
+
+      <div class="form-group">
+        <label>División</label>
+        <input type="text" formControlName="division">
+      </div>
+
+      <div class="form-group">
+        <label>Cupo de equipos</label>
+        <input type="number" formControlName="cupo">
+      </div>
+
+      <div *ngIf="errorMessage" class="alert-error">
+        ⚠ {{ errorMessage }}
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cancel" routerLink="/torneos">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-save" [disabled]="torneoForm.invalid || isSubmitting">
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Gestión de Entrenadores</h2>
+    <button class="btn-create" routerLink="/entrenadores/nuevo">
+      + Nuevo Entrenador
+    </button>
+  </div>
+
+  <table class="tabla-equipos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Experiencia</th>
+        <th>Equipo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of entrenadores">
+        <td>{{ e.id }}</td>
+        <td>{{ e.nombre }}</td>
+        <td>{{ e.experiencia }} años</td>
+        <td>{{ e.idEquipo }}</td>
+        <td>
+          <button class="btn-edit" (click)="editarEntrenador(e.id!)">✏️</button>
+          <button class="btn-delete" (click)="eliminarEntrenador(e.id!)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="entrenadores.length === 0" class="empty-state">
+    No hay entrenadores registrados.
+  </div>
+</div>

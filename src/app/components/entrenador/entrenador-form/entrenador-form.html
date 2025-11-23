@@ -1,0 +1,40 @@
+<div class="form-container">
+  <div class="card">
+    <h2>{{ isEditing ? 'Editar Entrenador' : 'Registrar Entrenador' }}</h2>
+
+    <form [formGroup]="entrenadorForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" formControlName="nombre">
+      </div>
+
+      <div class="form-group">
+        <label>Años de experiencia</label>
+        <input type="number" formControlName="experiencia">
+      </div>
+
+      <div class="form-group">
+        <label>Equipo asignado</label>
+        <select formControlName="idEquipo">
+          <option [ngValue]="null">Seleccione un equipo...</option>
+          <option *ngFor="let e of equipos" [value]="e.id">{{ e.nombre }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert-error">
+        ⚠ {{ errorMessage }}
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cancel" routerLink="/entrenadores">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-save" [disabled]="entrenadorForm.invalid || isSubmitting">
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

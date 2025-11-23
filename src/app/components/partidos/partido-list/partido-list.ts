@@ -40,3 +40,4 @@ export class PartidoListComponent implements OnInit {
     }
   }
 }
+

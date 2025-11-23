@@ -12,11 +12,21 @@ export class EstadisticaService {
 
   constructor(private http: HttpClient){}
 
+  // ✅ LISTAR TODAS LAS ESTADÍSTICAS
+  getAll(): Observable<Estadistica[]> {
+    return this.http.get<Estadistica[]>(this.apiUrl);
+  }
+
+  // ✅ ESTADÍSTICAS POR JUGADOR
   getByJugador(idJugador: number): Observable<Estadistica> {
     return this.http.get<Estadistica>(`${this.apiUrl}/jugador/${idJugador}`);
   }
 
+  // ✅ ESTADÍSTICAS POR JUGADOR Y TORNEO
   getByJugadorYTorneo(idJugador: number, idTorneo: number): Observable<Estadistica> {
-    return this.http.get<Estadistica>(`${this.apiUrl}/jugador/${idJugador}/torneo/${idTorneo}`);
+    return this.http.get<Estadistica>(
+      `${this.apiUrl}/jugador/${idJugador}/torneo/${idTorneo}`
+    );
   }
 }
+

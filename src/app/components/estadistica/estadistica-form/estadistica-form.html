@@ -1,0 +1,39 @@
+<div class="form-container">
+  <div class="card">
+    <h2>Consultar estadísticas</h2>
+
+    <form [formGroup]="form" (ngSubmit)="buscarEstadisticas()">
+
+      <div class="form-group">
+        <label>Jugador</label>
+        <select formControlName="jugadorId">
+          <option [ngValue]="null">Seleccione jugador</option>
+          <option *ngFor="let j of jugadores" [value]="j.id">
+            {{ j.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Torneo (opcional)</label>
+        <select formControlName="torneoId">
+          <option [ngValue]="null">Todos los torneos</option>
+          <option *ngFor="let t of torneos" [value]="t.id">
+            {{ t.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-save">Buscar</button>
+
+    </form>
+
+    <div *ngIf="resultado" class="resultado">
+      <h3>Resultado</h3>
+      <p><strong>Goles:</strong> {{ resultado.goles }}</p>
+      <p><strong>Asistencias:</strong> {{ resultado.asistencias }}</p>
+      <p><strong>Amarillas:</strong> {{ resultado.tarjetasAmarillas }}</p>
+      <p><strong>Rojas:</strong> {{ resultado.tarjetasRojas }}</p>
+    </div>
+  </div>
+</div>

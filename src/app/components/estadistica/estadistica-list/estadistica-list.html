@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Estadísticas Generales</h2>
+
+  <table class="tabla-equipos">
+    <thead>
+      <tr>
+        <th>Jugador</th>
+        <th>Goles</th>
+        <th>Asistencias</th>
+        <th>Amarillas</th>
+        <th>Rojas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of estadisticas">
+        <td>{{ e.jugadorNombre }}</td>
+        <td>{{ e.goles }}</td>
+        <td>{{ e.asistencias }}</td>
+        <td>{{ e.tarjetasAmarillas }}</td>
+        <td>{{ e.tarjetasRojas }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="estadisticas.length === 0" class="empty-state">
+    No hay estadísticas registradas.
+  </div>
+</div>

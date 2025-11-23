@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Partido } from '../models/partido.model';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +18,10 @@ export class PartidoService {
   update(id: number, partido: Partial<Partido>): Observable<Partido> {
     return this.http.put<Partido>(`${this.apiUrl}/${id}`, partido);
   }
+  create(partido: Partido): Observable<Partido> {
+  return this.http.post<Partido>(this.apiUrl, partido);
+}
+
 
   registrarResultado(id: number, data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/resultado`, data);
@@ -26,5 +29,9 @@ export class PartidoService {
   getAll(): Observable<Partido[]> {
   return this.http.get<Partido[]>(this.apiUrl);
 }
+delete(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/${id}`);
+}
+
 
 }

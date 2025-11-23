@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { TorneoService } from '../../../services/torneo.service';
 import { Torneo } from '../../../models/torneo.model';
+import { TorneoService } from '../../../services/torneo-service';
 
 @Component({
   selector: 'app-torneo-list',

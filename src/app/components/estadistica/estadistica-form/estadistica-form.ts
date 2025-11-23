@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EstadisticaService } from '../../../services/estadistica.service';
-import { JugadorService } from '../../../services/jugador.service';
-import { TorneoService } from '../../../services/torneo.service';
 import { Jugador } from '../../../models/jugador.model';
 import { Torneo } from '../../../models/torneo.model';
 import { Estadistica } from '../../../models/estadistica.model';
+import { EstadisticaService } from '../../../services/estadistica-service';
+import { JugadorService } from '../../../services/jugador-service';
+import { TorneoService } from '../../../services/torneo-service';
 
 @Component({
   selector: 'app-estadistica-form',

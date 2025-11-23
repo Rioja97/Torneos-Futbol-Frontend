@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EstadisticaService } from '../../../services/estadistica.service';
 import { Estadistica } from '../../../models/estadistica.model';
+import { EstadisticaService } from '../../../services/estadistica-service';
 
 @Component({
   selector: 'app-estadistica-list',

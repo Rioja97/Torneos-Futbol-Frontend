@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PartidoService } from '../../../services/partido.service';
 import { Partido } from '../../../models/partido.model';
+import { PartidoService } from '../../../services/partido-service';
 
 @Component({
   selector: 'app-partido-form',

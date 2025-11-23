@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { PartidoService } from '../../../services/partido.service';
 import { Partido } from '../../../models/partido.model';
+import { PartidoService } from '../../../services/partido-service';
 
 @Component({
   selector: 'app-partido-list',

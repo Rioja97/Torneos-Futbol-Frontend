@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TorneoService } from '../../../services/torneo.service';
 import { Torneo } from '../../../models/torneo.model';
+import { TorneoService } from '../../../services/torneo-service';
 
 @Component({
   selector: 'app-torneo-form',

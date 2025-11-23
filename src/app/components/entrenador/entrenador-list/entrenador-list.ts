@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { EntrenadorService } from '../../../services/entrenador.service';
 import { Entrenador } from '../../../models/entrenador.model';
+import { EntrenadorService } from '../../../services/entrenador-service';
 
 @Component({
   selector: 'app-entrenador-list',

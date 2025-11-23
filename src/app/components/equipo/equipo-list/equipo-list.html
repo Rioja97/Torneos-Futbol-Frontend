@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Gestión de Equipos</h2>
+    <button class="btn-create" routerLink="/equipos/nuevo">+ Nuevo Equipo</button>
+  </div>
+
+  <table class="tabla-equipos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Estadio</th>
+        <th>Capacidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipo of equipos">
+        <td>{{ equipo.id }}</td>
+        <td>{{ equipo.nombre }}</td>
+        <td>{{ equipo.ciudad }}</td>
+        <td>{{ equipo.nombreEstadio }}</td>
+        <td>{{ equipo.capacidadEstadio }}</td>
+
+        <td class="actions-cell">
+          <button class="btn-edit" (click)="editarEquipo(equipo.id!)">✏️</button>
+          <button class="btn-delete" (click)="eliminarEquipo(equipo.id!)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="equipos.length === 0" class="empty-state">
+    <p>No hay equipos cargados todavía.</p>
+  </div>
+</div>

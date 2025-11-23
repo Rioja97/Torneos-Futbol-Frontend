@@ -1,0 +1,39 @@
+<div class="form-container">
+  <div class="card">
+    <h2>{{ isEditing ? 'Editar Equipo' : 'Registrar Nuevo Equipo' }}</h2>
+    
+    <form [formGroup]="equipoForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="nombre">Nombre del Equipo</label>
+        <input type="text" id="nombre" formControlName="nombre" placeholder="Escribe el nombre">
+      </div>
+
+      <div class="form-group">
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" formControlName="ciudad" placeholder="Escribe la ciudad">
+      </div>
+
+      <hr>
+
+      <div class="form-group">
+        <label for="nombreEstadio">Nombre del Estadio</label>
+        <input type="text" id="nombreEstadio" formControlName="nombreEstadio" placeholder="Nombre del estadio">
+      </div>
+
+      <div class="form-group">
+        <label for="capacidadEstadio">Capacidad</label>
+        <input type="number" id="capacidadEstadio" formControlName="capacidadEstadio">
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cancel" routerLink="/equipos">Cancelar</button>
+        
+        <button type="submit" class="btn-save" [disabled]="equipoForm.invalid || isSubmitting">
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

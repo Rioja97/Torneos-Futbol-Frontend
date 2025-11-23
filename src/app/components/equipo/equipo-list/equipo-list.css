@@ -1,0 +1,70 @@
+.container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos de la Tabla */
+.tabla-equipos {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden; /* Para que las esquinas redondeadas se vean */
+}
+
+.tabla-equipos th, 
+.tabla-equipos td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.tabla-equipos th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+}
+
+.tabla-equipos tr:hover {
+  background-color: #f1f1f1; /* Efecto hover en las filas */
+}
+
+/* Botones */
+.btn-create {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-edit, .btn-delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.btn-edit:hover { transform: scale(1.2); }
+.btn-delete:hover { transform: scale(1.2); }
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  background: white;
+  margin-top: 1rem;
+  border-radius: 8px;
+}

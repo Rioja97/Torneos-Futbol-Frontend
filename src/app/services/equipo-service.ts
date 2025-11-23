@@ -1,33 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Equipo } from '../components/equipos/equipos';
+import { Equipo } from '../models/equipo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EquipoService {
   
-  private apiUrl = "https://localhost:8080/equipos";
+  private apiUrl = "http://localhost:8080/equipos";
 
   constructor(private http: HttpClient){}
 
   // 1. LISTAR TODOS (GET /equipos)
-  getAll(): Observable<Equipo[]>{
+  getAll(): Observable<any[]>{
     return this.http.get<Equipo[]>(this.apiUrl);
   }
 
   // 2. BUSCAR POR ID (GET /equipos/{id})
-  getById(id: number): Observable<Equipo>{
-    return this.http.get<Equipo>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
   // 3. CREAR (POST /equipos)
-  create(equipo: Equipo): Observable<Equipo> {
-    return this.http.post<Equipo>(this.apiUrl, equipo);
+  create(equipo: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, equipo);
   }
 
-  update(id: number): Observable<Equipo>{
-    return this.http.put<Equipo>(`${this.apiUrl}/${id}`, id);
+  // 4. ACTUALIZAR (PUT /equipos/{id})
+  update(id: number, data: any): Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}/${id}`, data);
+  }
+
+  // 5. ELIMINAR (DELETE /equipos/{id})
+  delete(id:number): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`)
   }
 }

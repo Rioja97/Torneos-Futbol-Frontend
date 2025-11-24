@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Entrenador } from '../../../models/entrenador.model';
 import { EntrenadorService } from '../../../services/entrenador-service';
 
 @Component({
   selector: 'app-entrenador-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './entrenador-list.html',
   styleUrls: ['./entrenador-list.css']
 })

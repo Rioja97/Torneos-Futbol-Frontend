@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Entrenador } from '../../../models/entrenador.model';
 import { Equipo } from '../../../models/equipo.model';
 import { EntrenadorService } from '../../../services/entrenador-service';
@@ -10,7 +10,7 @@ import { EquipoService } from '../../../services/equipo-service';
 @Component({
   selector: 'app-entrenador-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './entrenador-form.html',
   styleUrls: ['./entrenador-form.css']
 })

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Torneo } from '../../../models/torneo.model';
 import { TorneoService } from '../../../services/torneo-service';
 
 @Component({
   selector: 'app-torneo-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './torneo-list.html',
   styleUrls: ['./torneo-list.css']
 })

@@ -9,6 +9,8 @@ import { JugadorForm } from './components/jugador/jugador-form/jugador-form';
 import { EntrenadorListComponent } from './components/entrenador/entrenador-list/entrenador-list';
 import { EntrenadorFormComponent } from './components/entrenador/entrenador-form/entrenador-form';
 import { authGuard } from './guards/auth-guard';
+import { TorneoListComponent } from './components/torneo/torneo-list/torneo-list';
+import { TorneoFormComponent } from './components/torneo/torneo-form/torneo-form';
 
 export const routes: Routes = [
     // Ruta por defecto
@@ -31,5 +33,9 @@ export const routes: Routes = [
 
     { path: 'entrenadores', component: EntrenadorListComponent },
     { path: 'entrenadores/nuevo', component: EntrenadorFormComponent },
-    { path: 'entrenadores/editar/:id', component: EntrenadorFormComponent }
+    { path: 'entrenadores/editar/:id', component: EntrenadorFormComponent },
+
+    { path: 'torneos', component:TorneoListComponent},
+    { path: 'torneos/nuevo', component:TorneoFormComponent},
+    { path: 'torneos/editar/:id', component:TorneoFormComponent}
 ];

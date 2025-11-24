@@ -36,7 +36,7 @@ export class EntrenadorFormComponent implements OnInit {
     this.entrenadorForm = this.fb.group({
       nombre: ['', Validators.required],
       experiencia: [0, [Validators.required, Validators.min(0)]],
-      idEquipo: [null, Validators.required]
+      equipoId: [null, Validators.required]
     });
 
     this.cargarEquipos();
@@ -68,15 +68,26 @@ cargarEntrenador(id: number) {
     if (this.entrenadorForm.invalid) return;
 
     this.isSubmitting = true;
-    const entrenador: Entrenador = this.entrenadorForm.value;
+
+    const formValue = this.entrenadorForm.value;
+
+    const entrenadorParaEnviar = {
+      nombre: formValue.nombre,
+      experiencia: formValue.experiencia,
+      equipoId: Number(formValue.equipoId),
+      nombreEquipo: formValue.nombreEquipo // <--- Convertimos a Número por seguridad
+    };
+
+    console.log('Enviando:', entrenadorParaEnviar);
 
     const request = this.isEditing
-      ? this.entrenadorService.update(this.entrenadorId!, entrenador)
-      : this.entrenadorService.create(entrenador);
+      ? this.entrenadorService.update(this.entrenadorId!, entrenadorParaEnviar)
+      : this.entrenadorService.create(entrenadorParaEnviar);
 
     request.subscribe({
       next: () => this.router.navigate(['/entrenadores']),
-      error: () => {
+      error: (err) => {
+        console.error(err);
         this.errorMessage = 'Error al guardar entrenador';
         this.isSubmitting = false;
       }

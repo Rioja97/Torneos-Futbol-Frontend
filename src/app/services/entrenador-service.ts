@@ -20,8 +20,8 @@ export class EntrenadorService {
     return this.http.get<Entrenador>(`${this.apiUrl}/${id}`);
   }
 
-  create(entrenador: Entrenador): Observable<Entrenador> {
-    return this.http.post<Entrenador>(this.apiUrl, entrenador);
+  create(entrenador: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, entrenador);
   }
 
   update(id: number, entrenador: Entrenador): Observable<Entrenador> {

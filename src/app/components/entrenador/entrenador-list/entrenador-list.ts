@@ -27,10 +27,14 @@ export class EntrenadorListComponent implements OnInit {
  
 
 cargarEntrenadores() {
-  this.entrenadorService.getAll().subscribe((data: Entrenador[]) => {
-    this.entrenadores = data;
-  });
-}
+    this.entrenadorService.getAll().subscribe({
+      next: (data) => {
+        this.entrenadores = data;
+        console.log('DATAZOS DE ENTRENADORES:', data); 
+      },
+      error: (err) => console.error(err)
+    });
+  }
 
 
   editarEntrenador(id: number) {

@@ -16,7 +16,7 @@
 
       <div class="form-group">
         <label>Equipo asignado</label>
-        <select formControlName="idEquipo">
+        <select formControlName="equipoId">
           <option [ngValue]="null">Seleccione un equipo...</option>
           <option *ngFor="let e of equipos" [value]="e.id">{{ e.nombre }}</option>
         </select>

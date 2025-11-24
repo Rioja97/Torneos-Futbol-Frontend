@@ -12,19 +12,22 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Experiencia</th>
-        <th>Equipo</th>
+        <th>Id Equipo</th>
+        <th>Nombre del Equipo</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let e of entrenadores">
-        <td>{{ e.id }}</td>
-        <td>{{ e.nombre }}</td>
-        <td>{{ e.experiencia }} años</td>
-        <td>{{ e.idEquipo }}</td>
-        <td>
-          <button class="btn-edit" (click)="editarEntrenador(e.id!)">✏️</button>
-          <button class="btn-delete" (click)="eliminarEntrenador(e.id!)">🗑️</button>
+     <tr *ngFor="let entrenador of entrenadores">
+        <td>{{ entrenador.id }}</td>
+        <td>{{ entrenador.nombre }}</td>
+        <td>{{ entrenador.experiencia }} años</td>
+        <td>{{ entrenador.equipoId }}</td>
+        <td>{{ entrenador.nombreEquipo }}</td>
+
+        <td class="actions-cell">
+          <button class="btn-edit" (click)="editarEntrenador(entrenador.id!)">✏️</button>
+          <button class="btn-delete" (click)="eliminarEntrenador(entrenador.id!)">🗑️</button>
         </td>
       </tr>
     </tbody>

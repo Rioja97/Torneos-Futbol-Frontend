@@ -220,6 +220,11 @@ export class ErrorHandlerService {
     }
 
     // Fallback: devolver el mensaje compacto como único elemento
+    // Si el backend envía un message plano sin patrones de validación, preservar completo
+    if (typeof error.error?.message === 'string') {
+      const full = error.error.message.trim();
+      if (full.length) return [full];
+    }
     const single = this.formatErrorMessage(error);
     return [single];
   }

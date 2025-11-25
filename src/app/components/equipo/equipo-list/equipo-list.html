@@ -1,7 +1,9 @@
+<app-navbar></app-navbar>
+
 <div class="container">
   <div class="header-section">
     <h2>Gestión de Equipos</h2>
-    <button class="btn-create" routerLink="/equipos/nuevo">+ Nuevo Equipo</button>
+    <button *ngIf="authService.isAdmin()" class="btn-create" routerLink="/equipos/nuevo">+ Nuevo Equipo</button>
   </div>
 
   <table class="tabla-equipos">
@@ -12,6 +14,7 @@
         <th>Ciudad</th>
         <th>Estadio</th>
         <th>Capacidad</th>
+        <th *ngIf="authService.isAdmin()">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -22,7 +25,7 @@
         <td>{{ equipo.nombreEstadio }}</td>
         <td>{{ equipo.capacidadEstadio }}</td>
 
-        <td class="actions-cell">
+        <td *ngIf="authService.isAdmin()" class="actions-cell">
           <button class="btn-edit" (click)="editarEquipo(equipo.id!)">✏️</button>
           <button class="btn-delete" (click)="eliminarEquipo(equipo.id!)">🗑️</button>
         </td>

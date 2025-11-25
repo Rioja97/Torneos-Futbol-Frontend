@@ -1,43 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { Partido } from '../../../models/partido.model';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { PartidoService } from '../../../services/partido-service';
+import { RegistrarResultadoModalComponent } from '../registrar-resultado-modal/registrar-resultado-modal';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/authService';
 
 @Component({
-  selector: 'app-partido-list',
+  selector: 'app-partido-form',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIcon, MatButtonModule, MatTooltipModule],
   templateUrl: './partido-list.html',
   styleUrls: ['./partido-list.css']
 })
-export class PartidoListComponent implements OnInit {
 
-  partidos: Partido[] = [];
+export class PartidoListComponent implements OnInit {
+  partidos: any[] = [];
+  torneoId: number = 0;
 
   constructor(
     private partidoService: PartidoService,
-    private router: Router
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.cargarPartidos();
-  }
-
-  cargarPartidos() {
-    this.partidoService.getAll().subscribe((data: Partido[]) => {
-      this.partidos = data;
+    this.route.paramMap.subscribe(params => {
+      const idStr = params.get('id');
+      if (idStr) {
+        this.torneoId = +idStr;
+        this.cargarPartidos();
+      }
     });
   }
 
-  editarPartido(id: number) {
-    this.router.navigate(['/partidos/editar', id]);
+  cargarPartidos() {
+    this.partidoService.getPartidosPorTorneo(this.torneoId).subscribe({
+      next: (data) => {
+        this.partidos = data;
+      },
+      error: (err) => console.error('Error cargando partidos:', err)
+    });
   }
 
-  eliminarPartido(id: number) {
-    if(confirm('¿Eliminar partido?')){
-      this.partidoService.delete(id).subscribe(() => this.cargarPartidos());
-    }
+  abrirRegistroResultado(partido: any) {
+    const dialogRef = this.dialog.open(RegistrarResultadoModalComponent, {
+      width: '900px',
+      disableClose: true,
+      data: { partido: partido }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cargarPartidos();
+      }
+    });
   }
 }
-

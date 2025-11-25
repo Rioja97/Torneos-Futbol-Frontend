@@ -1,42 +1,39 @@
-<div class="container">
-  <div class="header-section">
-    <h2>Gestión de Partidos</h2>
-    <button class="btn-create" routerLink="/partidos/nuevo">
-      + Nuevo Partido
-    </button>
-  </div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Local</th>
+      <th>Visitante</th>
+      <th>Resultado</th> <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of partidos">
+      <td>{{ p.fecha | date:'short' }}</td>
+      <td>{{ p.nombreEquipoLocal }}</td>
+      <td>{{ p.nombreEquipoVisitante }}</td>
+      <td>
+        <span *ngIf="p.jugado" class="badge bg-success">{{ p.resultado }}</span>
+        <span *ngIf="!p.jugado" class="badge bg-warning text-dark">Pendiente</span>
+      </td>
+      <td>
+        <button *ngIf="!p.jugado && authService.isAdmin()" 
+                mat-raised-button 
+                color="primary" 
+                (click)="abrirRegistroResultado(p)">
+          <mat-icon>sports_soccer</mat-icon> Registrar Resultado
+        </button>
 
-  <table class="tabla-equipos">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Local</th>
-        <th>Visitante</th>
-        <th>Torneo</th>
-        <th>Fecha</th>
-        <th>Resultado</th>
-        <th>Jugado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of partidos">
-        <td>{{ p.id }}</td>
-        <td>{{ p.nombreEquipoLocal }}</td>
-        <td>{{ p.nombreEquipoVisitante }}</td>
-        <td>{{ p.nombreTorneo }}</td>
-        <td>{{ p.fecha }}</td>
-        <td>{{ p.resultado || 'Pendiente' }}</td>
-        <td>{{ p.jugado ? '' : '' }}</td>
-        <td>
-          <button class="btn-edit" (click)="editarPartido(p.id!)">✏️</button>
-          <button class="btn-delete" (click)="eliminarPartido(p.id!)">🗑️</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <button *ngIf="p.jugado && authService.isAdmin()" 
+                mat-icon-button 
+                color="accent" 
+                matTooltip="Editar resultado"
+                (click)="abrirRegistroResultado(p)">
+          <mat-icon>edit</mat-icon>
+        </button>
 
-  <div *ngIf="partidos.length === 0" class="empty-state">
-    No hay partidos registrados.
-  </div>
-</div>
+        <span *ngIf="!authService.isAdmin()" class="badge bg-secondary">Solo lectura</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { Entrenador } from '../../../models/entrenador.model';
 import { EntrenadorService } from '../../../services/entrenador-service';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { AuthService } from '../../../services/authService';
 
 @Component({
   selector: 'app-entrenador-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NavbarComponent],
   templateUrl: './entrenador-list.html',
   styleUrls: ['./entrenador-list.css']
 })
@@ -17,7 +19,8 @@ export class EntrenadorListComponent implements OnInit {
 
   constructor(
     private entrenadorService: EntrenadorService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>Registrar Resultado</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    
+    <!-- Marcador General -->
+    <div class="marcador-bloque">
+      <div class="equipo-bloque">
+        <h3>{{ data.partido.nombreEquipoLocal }}</h3>
+        <input type="number" formControlName="golesLocal" class="form-control form-control-lg marcador-input" min="0">
+      </div>
+
+      <span class="vs">VS</span>
+
+      <div class="equipo-bloque">
+        <h3>{{ data.partido.nombreEquipoVisitante }}</h3>
+        <input type="number" formControlName="golesVisitante" class="form-control form-control-lg marcador-input" min="0">
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Estadísticas Individuales</h3>
+    <p class="text-muted small">Marca la casilla si jugó pero no tuvo stats, o ingresa sus números directamente.</p>
+
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner diameter="30"></mat-spinner> Cargando plantillas...
+    </div>
+
+    <div class="table-responsive" *ngIf="!loading">
+      <table class="table table-sm align-middle">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 5%">Jugó</th>
+            <th style="width: 30%">Jugador / Equipo</th>
+            <th style="width: 15%">Goles</th>
+            <th style="width: 15%">Asist.</th>
+            <th style="width: 15%">Amarillas</th>
+            <th style="width: 15%">Rojas</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="estadisticas">
+          <tr *ngFor="let stat of estadisticasArr.controls; let i = index" [formGroupName]="i">
+            
+            <td class="text-center">
+              <mat-checkbox formControlName="participo" color="primary"></mat-checkbox>
+            </td>
+
+            <td>
+              <div class="fw-bold">{{ stat.get('nombreJugador')?.value }}</div>
+              <div class="text-muted small">{{ stat.get('nombreEquipo')?.value }}</div>
+            </td>
+
+            <td>
+              <input type="number" formControlName="goles" class="form-control form-control-sm" min="0" (change)="stat.get('participo')?.setValue(true)">
+            </td>
+
+            <td>
+              <input type="number" formControlName="asistencias" class="form-control form-control-sm" min="0" (change)="stat.get('participo')?.setValue(true)">
+            </td>
+
+            <td>
+              <input type="number" formControlName="tarjetasAmarillas" class="form-control form-control-sm" min="0" max="2" (change)="stat.get('participo')?.setValue(true)">
+            </td>
+
+            <td>
+              <input type="number" formControlName="tarjetasRojas" class="form-control form-control-sm" min="0" max="1" (change)="stat.get('participo')?.setValue(true)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </form>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()" [disabled]="loading || form.invalid">
+    Confirmar Resultado
+  </button>
+</mat-dialog-actions>

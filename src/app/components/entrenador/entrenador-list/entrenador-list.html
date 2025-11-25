@@ -1,7 +1,9 @@
+<app-navbar></app-navbar>
+
 <div class="container">
   <div class="header-section">
     <h2>Gestión de Entrenadores</h2>
-    <button class="btn-create" routerLink="/entrenadores/nuevo">
+    <button *ngIf="authService.isAdmin()" class="btn-create" routerLink="/entrenadores/nuevo">
       + Nuevo Entrenador
     </button>
   </div>
@@ -14,7 +16,7 @@
         <th>Experiencia</th>
         <th>Id Equipo</th>
         <th>Nombre del Equipo</th>
-        <th>Acciones</th>
+        <th *ngIf="authService.isAdmin()">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +27,7 @@
         <td>{{ entrenador.equipoId }}</td>
         <td>{{ entrenador.nombreEquipo }}</td>
 
-        <td class="actions-cell">
+        <td *ngIf="authService.isAdmin()" class="actions-cell">
           <button class="btn-edit" (click)="editarEntrenador(entrenador.id!)">✏️</button>
           <button class="btn-delete" (click)="eliminarEntrenador(entrenador.id!)">🗑️</button>
         </td>

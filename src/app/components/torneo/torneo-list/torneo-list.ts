@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { Torneo } from '../../../models/torneo.model';
 import { TorneoService } from '../../../services/torneo-service';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { AuthService } from '../../../services/authService';
 
 @Component({
   selector: 'app-torneo-list',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule, NavbarComponent],
   templateUrl: './torneo-list.html',
   styleUrls: ['./torneo-list.css']
 })
@@ -17,7 +19,8 @@ export class TorneoListComponent implements OnInit {
 
   constructor(
     private torneoService: TorneoService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

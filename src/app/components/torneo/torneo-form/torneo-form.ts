@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Torneo } from '../../../models/torneo.model';
 import { TorneoService } from '../../../services/torneo-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-torneo-form',
@@ -62,10 +63,23 @@ export class TorneoFormComponent implements OnInit {
 
     request.subscribe({
       next: () => this.router.navigate(['/torneos']),
-      error: () => {
-        this.errorMessage = 'Error al guardar torneo';
-        this.isSubmitting = false;
+      error: (err: HttpErrorResponse) => { // Importar HttpErrorResponse
+      console.error('Error del backend:', err);
+      this.isSubmitting = false;
+
+      // --- LÓGICA ESTÁNDAR DE ERRORES ---
+      if (err.error && err.error.message) {
+        // CASO 1: Error controlado por tu GlobalExceptionHandler
+        // (Ej: "Ya existe ese nombre", "Falta el ID", etc.)
+        this.errorMessage = err.error.message;
+      } else if (err.status === 0) {
+        // CASO 2: Servidor apagado o CORS (Lo que te pasó recién)
+        this.errorMessage = 'No se pudo conectar con el servidor.';
+      } else {
+        // CASO 3: Error inesperado no controlado
+        this.errorMessage = 'Ocurrió un error inesperado. Intente nuevamente.';
       }
+    }
     });
   }
 }

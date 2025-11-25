@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ErrorNotificationComponent } from './components/shared/error-notification/error-notification.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ErrorNotificationComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,39 +1,40 @@
 <div class="form-container">
   <div class="card">
-    <h2>{{ isEditing ? 'Editar Partido' : 'Registrar Partido' }}</h2>
+    <h2>{{ isEditing ? 'Editar Partido' : 'Programar Partido' }}</h2>
 
     <form [formGroup]="partidoForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group">
-        <label>Equipo Local</label>
-        <input type="text" formControlName="nombreEquipoLocal">
-      </div>
-
-      <div class="form-group">
-        <label>Equipo Visitante</label>
-        <input type="text" formControlName="nombreEquipoVisitante">
-      </div>
-
-      <div class="form-group">
-        <label>Torneo</label>
-        <input type="text" formControlName="nombreTorneo">
-      </div>
-
-      <div class="form-group">
-        <label>Fecha</label>
+        <label>Fecha del Encuentro</label>
         <input type="date" formControlName="fecha">
       </div>
 
-      <div class="form-group">
-        <label>Resultado (opcional)</label>
-        <input type="text" formControlName="resultado" placeholder="Ej: 2-1">
-      </div>
+      <hr>
 
-      <div class="form-group checkbox-group">
-        <label>
-          <input type="checkbox" formControlName="jugado">
-          Partido jugado
-        </label>
+      <div class="teams-selection">
+          
+          <div class="form-group half">
+            <label>Equipo Local</label>
+            <select formControlName="equipoLocalId">
+                <option [ngValue]="null">Selecciona Local...</option>
+                <option *ngFor="let e of equipos" [value]="e.id">
+                    {{ e.nombre }}
+                </option>
+            </select>
+          </div>
+
+          <div class="vs-separator">VS</div>
+
+          <div class="form-group half">
+            <label>Equipo Visitante</label>
+            <select formControlName="equipoVisitanteId">
+                <option [ngValue]="null">Selecciona Visitante...</option>
+                <option *ngFor="let e of equipos" [value]="e.id">
+                    {{ e.nombre }}
+                </option>
+            </select>
+          </div>
+
       </div>
 
       <div *ngIf="errorMessage" class="alert-error">
@@ -41,9 +42,8 @@
       </div>
 
       <div class="actions">
-        <button type="button" class="btn-cancel" routerLink="/partidos">
-          Cancelar
-        </button>
+        <button type="button" class="btn-cancel" (click)="atras()">Cancelar</button>
+        
         <button type="submit" class="btn-save" [disabled]="partidoForm.invalid || isSubmitting">
           {{ isEditing ? 'Actualizar' : 'Guardar' }}
         </button>

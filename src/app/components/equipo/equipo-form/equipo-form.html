@@ -33,6 +33,10 @@
       <div class="actions">
         <button type="button" class="btn-cancel" routerLink="/equipos">Cancelar</button>
         
+        <div *ngIf="errorMessage" class="alert-error">
+          <span class="icon">⚠️</span> 
+          {{ errorMessage }}
+        </div>
         <button type="submit" class="btn-save" [disabled]="equipoForm.invalid || isSubmitting">
           {{ isEditing ? 'Actualizar' : 'Guardar' }}
         </button>

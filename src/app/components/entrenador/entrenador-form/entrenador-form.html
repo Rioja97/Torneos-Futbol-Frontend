@@ -23,9 +23,9 @@
       </div>
 
       <div *ngIf="errorMessage" class="alert-error">
-        ⚠ {{ errorMessage }}
+      <span class="icon">⚠️</span> 
+        {{ errorMessage }}
       </div>
-
       <div class="actions">
         <button type="button" class="btn-cancel" routerLink="/entrenadores">
           Cancelar

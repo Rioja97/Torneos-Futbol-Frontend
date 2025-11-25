@@ -8,13 +8,15 @@
   </header>
 
   <main class="main-content">
-    <h2>Bienvenido al Panel de Control</h2>
-    <p>Selecciona una sección para comenzar a administrar.</p>
+    <div class="welcome-section">
+      <h2>Bienvenido al Panel de Control</h2>
+      <p>Selecciona una sección para comenzar a administrar.</p>
+    </div>
 
     <div class="grid-menu">
       
       <div class="card" routerLink="/equipos">
-        <div class="icon">⚽</div>
+        <div class="icon">🥅</div>
         <h3>Equipos</h3>
         <p>Ver, crear y editar equipos.</p>
       </div>
@@ -29,12 +31,6 @@
         <div class="icon">🏆</div>
         <h3>Torneos</h3>
         <p>Organizar nuevos campeonatos.</p>
-      </div>
-
-      <div class="card" routerLink="/estadisticas">
-        <div class="icon">📊</div>
-        <h3>Estadísticas</h3>
-        <p>Ver el rendimiento general.</p>
       </div>
       
       <div class="card" routerLink="/entrenadores">

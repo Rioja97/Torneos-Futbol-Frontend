@@ -1,37 +1,52 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Partido } from '../models/partido.model';
+// Si tenés la interfaz definida, importala. Si no, usá 'any' por ahora.
+// import { Partido } from '../models/partido.model';
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PartidoService {
 
-  private apiUrl = 'http://localhost:8080/partidos';
+  private baseUrl = 'http://localhost:8080';
+  
+  // Rutas base específicas
+  private apiUrlPartidos = `${this.baseUrl}/partidos`;
+  private apiUrlTorneos  = `${this.baseUrl}/torneos`;
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) { }
 
-  getById(id: number): Observable<Partido> {
-    return this.http.get<Partido>(`${this.apiUrl}/${id}`);
+  getPartidosPorTorneo(idTorneo: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrlTorneos}/${idTorneo}/partidos`);
   }
 
-  update(id: number, partido: Partial<Partido>): Observable<Partido> {
-    return this.http.put<Partido>(`${this.apiUrl}/${id}`, partido);
+  registrarResultado(idPartido: number, resultadoDTO: any): Observable<any> {
+    return this.http.put(`${this.apiUrlPartidos}/${idPartido}/resultado`, resultadoDTO);
   }
-  create(partido: Partido): Observable<Partido> {
-  return this.http.post<Partido>(this.apiUrl, partido);
-}
-
-
-  registrarResultado(id: number, data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${id}/resultado`, data);
+  
+  //Crea un partido asignado a un torneo específico.
+  crearPartidoEnTorneo(idTorneo: number, partidoDTO: any): Observable<any> {
+    return this.http.post(`${this.apiUrlTorneos}/${idTorneo}/partidos`, partidoDTO);
   }
-  getAll(): Observable<Partido[]> {
-  return this.http.get<Partido[]>(this.apiUrl);
-}
-delete(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.apiUrl}/${id}`);
+
+  //Elimina un partido de un torneo.
+  eliminarPartidoDeTorneo(idTorneo: number, idPartido: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrlTorneos}/${idTorneo}/partidos/${idPartido}`);
+  }
+
+  getAll(): Observable<any[]> {
+  return this.http.get<any[]>(this.apiUrlPartidos);
 }
 
+   //Busca un partido por su ID único (útil para editar).
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrlPartidos}/${id}`);
+  }
+
+  //Actualiza datos generales del partido (fecha, equipos).
+  update(id: number, partidoDTO: any): Observable<any> {
+    return this.http.patch(`${this.apiUrlPartidos}/${id}`, partidoDTO);
+  }
 
 }

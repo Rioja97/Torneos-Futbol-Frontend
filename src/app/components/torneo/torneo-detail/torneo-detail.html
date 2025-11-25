@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <div class="torneo-header" *ngIf="torneo">
+    <div class="header-left">
+        <button class="btn-back" routerLink="/torneos">⬅ Volver</button>
+        <div>
+            <h2>{{ torneo.nombre }}</h2>
+            <span class="badge-division">{{ torneo.division }}</span>
+        </div>
+    </div>
+    
+    <button class="btn-create" [routerLink]="['/torneos', torneo.id, 'partidos', 'nuevo']">
+        + Programar Partido
+    </button>
+  </div>
+
+  <hr class="divider">
+
+  <h3>Fixture</h3>
+
+  <table class="tabla-equipos">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th class="text-right">Local</th>
+        <th class="text-center">VS</th>
+        <th class="text-left">Visitante</th>
+        <th class="text-center">Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of partidos">
+        <td>{{ p.fecha | date:'dd/MM/yyyy' }}</td>
+        
+        <td class="text-right font-bold">{{ p.nombreEquipoLocal }}</td>
+        <td class="text-center vs">vs</td>
+        <td class="text-left font-bold">{{ p.nombreEquipoVisitante }}</td>
+
+        <td class="text-center">
+            <span *ngIf="p.jugado" class="badge-played">{{ p.resultado }}</span>
+            <span *ngIf="!p.jugado" class="badge-pending">Pendiente</span>
+        </td>
+
+        <td class="actions-cell">
+            <button class="btn-result" (click)="abrirRegistroResultado(p)" title="Registrar Resultado" *ngIf="!p.jugado">
+                📊
+            </button>
+
+            <button class="btn-edit" [routerLink]="['/partidos/editar', p.id]" title="Editar">
+                ✏️
+            </button>
+            <button class="btn-delete" (click)="eliminarPartido(p.id)" title="Eliminar">
+                🗑️
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="partidos.length === 0" class="empty-state">
+    <p>Aún no hay partidos programados para este torneo.</p>
+  </div>
+
+  <!-- Sección de Estadísticas -->
+  <app-estadistica-section 
+    [torneoId]="torneoId" 
+    [jugados]="hayPartidosJugados">
+  </app-estadistica-section>
+
+</div>

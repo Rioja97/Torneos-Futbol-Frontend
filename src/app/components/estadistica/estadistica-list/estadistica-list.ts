@@ -17,12 +17,13 @@ export class EstadisticaListComponent implements OnInit {
   constructor(private estadisticaService: EstadisticaService) {}
 
   ngOnInit(): void {
-    this.cargarEstadisticas();
+    // TODO: Este componente necesita ser actualizado para usar getByTorneo()
+    // this.cargarEstadisticas();
   }
 
   cargarEstadisticas() {
-    this.estadisticaService.getAll().subscribe((data: Estadistica[]) => {
-      this.estadisticas = data;
-    });
+    // El endpoint getAll() no existe en el backend
+    // Si necesitas listar estadísticas, usa getByTorneo(torneoId)
+    console.warn('EstadisticaListComponent: getAll() no está implementado');
   }
 }

@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router'; // Importamos Router
 import { EquipoService } from '../../../services/equipo-service';
 import { Equipo } from '../../../models/equipo.model';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { AuthService } from '../../../services/authService';
 
 
 @Component({
   selector: 'app-equipo-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NavbarComponent],
   templateUrl: './equipo-list.html',
   styleUrls: ['./equipo-list.css'] // Corregí styleUrl a styleUrls (plural es más común aunque ambos funcionan en v17+)
 })
@@ -18,7 +20,8 @@ export class EquiposList implements OnInit {
 
   constructor(
     private equipoService: EquipoService,
-    private router: Router // Inyectamos el Router para poder navegar
+    private router: Router, // Inyectamos el Router para poder navegar
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

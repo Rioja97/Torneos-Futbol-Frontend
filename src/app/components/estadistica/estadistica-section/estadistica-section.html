@@ -1,0 +1,38 @@
+<div class="estadistica-section" *ngIf="jugados">
+  <h3>📊 Estadísticas del Torneo</h3>
+
+  <div *ngIf="cargando" class="loading">
+    <p>Cargando estadísticas...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!cargando && !error && estadisticas.length > 0" class="stats-container">
+    <table class="tabla-estadisticas">
+      <thead>
+        <tr>
+          <th>Jugador</th>
+          <th class="text-center">Goles</th>
+          <th class="text-center">Asistencias</th>
+          <th class="text-center">Tarjetas Amarillas</th>
+          <th class="text-center">Tarjetas Rojas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stat of estadisticas" class="stat-row">
+          <td class="jugador-name">{{ stat.nombreJugador }}</td>
+          <td class="text-center goles">{{ stat.goles || 0 }}</td>
+          <td class="text-center asistencias">{{ stat.asistencias || 0 }}</td>
+          <td class="text-center amarillas">{{ stat.tarjetasAmarillas || 0 }}</td>
+          <td class="text-center rojas">{{ stat.tarjetasRojas || 0 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!cargando && !error && estadisticas.length === 0" class="empty-state">
+    <p>No hay estadísticas disponibles aún.</p>
+  </div>
+</div>

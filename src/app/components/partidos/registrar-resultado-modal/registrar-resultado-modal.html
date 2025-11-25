@@ -75,7 +75,7 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="cerrar()">Cancelar</button>
   <button mat-raised-button color="primary" (click)="guardar()" [disabled]="loading || form.invalid">
     Confirmar Resultado
   </button>

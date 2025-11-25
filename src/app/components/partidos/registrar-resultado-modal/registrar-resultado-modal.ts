@@ -116,6 +116,10 @@ export class RegistrarResultadoModalComponent implements OnInit {
     this.estadisticasArr.push(group);
   }
 
+  cerrar() {
+    this.dialogRef.close();
+  }
+
   guardar() {
     if (this.form.invalid) {
       this.form.markAllAsTouched(); // Marca errores en rojo si los hay

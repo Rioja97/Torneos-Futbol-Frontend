@@ -11,7 +11,7 @@
         </div>
     </div>
     
-    <button class="btn-create" [routerLink]="['/torneos', torneo.id, 'partidos', 'nuevo']">
+    <button *ngIf="authService.isAdmin()" class="btn-create" [routerLink]="['/torneos', torneo.id, 'partidos', 'nuevo']">
         + Programar Partido
     </button>
   </div>

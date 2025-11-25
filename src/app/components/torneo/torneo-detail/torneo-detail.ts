@@ -7,6 +7,7 @@ import { PartidoService } from '../../../services/partido-service';
 import { RegistrarResultadoModalComponent } from '../../../components/partidos/registrar-resultado-modal/registrar-resultado-modal';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { EstadisticaSectionComponent } from '../../estadistica/estadistica-section/estadistica-section';
+import { AuthService } from '../../../services/authService';
 
 @Component({
   selector: 'app-torneo-detail',
@@ -26,7 +27,8 @@ export class TorneoDetailComponent implements OnInit {
     private router: Router,
     private torneoService: TorneoService,
     private partidoService: PartidoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { forkJoin } from 'rxjs';
 import { PartidoService } from '../../../services/partido-service';
@@ -18,14 +18,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './registrar-resultado-modal.html',
   standalone: true,
   styleUrls: ['./registrar-resultado-modal.css'],
-  imports: [    ReactiveFormsModule,
-                CommonModule,
-                MatDialogActions,
-                MatButtonModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatCheckboxModule,
-                MatProgressSpinnerModule]
+  imports: [ReactiveFormsModule,
+    CommonModule,
+    MatDialogActions,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule, MatDialogClose]
             })
 export class RegistrarResultadoModalComponent implements OnInit {
   form: FormGroup;

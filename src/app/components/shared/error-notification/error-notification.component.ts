@@ -20,7 +20,10 @@ import { takeUntil } from 'rxjs/operators';
         <button type="button" class="btn-close" (click)="cerrar()"></button>
       </div>
       <p class="alert-message">{{ currentError.message }}</p>
-      <small *ngIf="currentError.details" class="alert-details">
+      <div *ngIf="currentError.details" class="alert-details-actions">
+        <button class="details-toggle" (click)="toggleDetails()">{{ showDetails ? 'Ocultar detalles' : 'Ver detalles' }}</button>
+      </div>
+      <small *ngIf="showDetails && currentError.details" class="alert-details">
         {{ currentError.details }}
       </small>
     </div>
@@ -28,14 +31,15 @@ import { takeUntil } from 'rxjs/operators';
   styles: [`
     .alert {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      max-width: 500px;
-      padding: 16px;
+      top: 16px;
+      right: 16px;
+      max-width: 420px;
+      padding: 12px 14px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      animation: slideIn 0.3s ease-out;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      animation: slideIn 0.25s ease-out;
       z-index: 9999;
+      font-size: 0.95rem;
     }
 
     @keyframes slideIn {
@@ -80,15 +84,42 @@ import { takeUntil } from 'rxjs/operators';
 
     .alert-message {
       margin: 0;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1.2;
+      max-height: 3.6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .alert-details-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .details-toggle {
+      background: transparent;
+      border: none;
+      color: inherit;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      padding: 0;
     }
 
     .alert-details {
       display: block;
       margin-top: 8px;
-      opacity: 0.8;
+      opacity: 0.85;
       font-family: monospace;
-      overflow-wrap: break-word;
+      max-height: 10rem;
+      overflow: auto;
+      padding: 8px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      font-size: 0.85rem;
     }
 
     .btn-close {
@@ -111,6 +142,7 @@ export class ErrorNotificationComponent implements OnInit, OnDestroy {
   currentError: ErrorMessage | null = null;
   private destroy$ = new Subject<void>();
   private autoCloseTimer: any;
+  public showDetails = false;
 
   constructor(private errorHandler: ErrorHandlerService) {}
 
@@ -123,6 +155,8 @@ export class ErrorNotificationComponent implements OnInit, OnDestroy {
         // Auto-cerrar TODOS los mensajes después de 5 segundos
         if (error) {
           this.autoCloseTimer = setTimeout(() => this.cerrar(), 5000);
+          // reset details view when a new error arrives
+          this.showDetails = false;
         }
       });
   }
@@ -137,6 +171,10 @@ export class ErrorNotificationComponent implements OnInit, OnDestroy {
 
   cerrar(): void {
     this.errorHandler.clearError();
+  }
+
+  toggleDetails(): void {
+    this.showDetails = !this.showDetails;
   }
 
   getTitle(): string {

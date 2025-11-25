@@ -22,8 +22,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(clonedReq).pipe(
     catchError(error => {
-      // Manejar el error globalmente
-      errorHandler.handleError(error);
+      // Manejar el error globalmente (excepto validaciones de formulario -> 400)
+      if (error?.status !== 400) {
+        errorHandler.handleError(error);
+      }
 
       // Si es 401, redirigir a login
       if (error.status === 401) {

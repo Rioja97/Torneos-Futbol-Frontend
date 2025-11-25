@@ -25,9 +25,10 @@ export const routes: Routes = [
     { path: 'login', component: Login, canActivate: [loginGuard] },
     { path: 'register', component: Register, canActivate: [loginGuard] },
 
-    // RUTAS PROTEGIDAS (SIN GUARD POR AHORA - SOLO PARA PROBAR)
-    { path: 'home', component: Home },
+    // RUTAS PROTEGIDAS (PROTEGEMOS HOME PARA QUE NO SEA ACCESIBLE SIN TOKEN)
+    { path: 'home', component: Home, canActivate: [authGuard] },
     
+    //RUTAS PARA ENTIDADES
     { path: 'equipos', component: EquiposList, canActivate: [authGuard] },
     { path: 'equipos/nuevo', component: EquipoForm, canActivate: [authGuard, adminGuard] },
     { path: 'equipos/editar/:id', component: EquipoForm, canActivate: [authGuard, adminGuard] },

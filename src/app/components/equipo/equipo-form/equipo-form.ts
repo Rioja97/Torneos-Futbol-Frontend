@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EquipoService } from '../../../services/equipo-service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -15,6 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class EquipoForm {
 
   errorMessage: string | null = null;
+  errorMessages: string[] | null = null;
   equipoForm: FormGroup;
   isSubmitting = false;
 
@@ -25,7 +27,8 @@ export class EquipoForm {
     private fb: FormBuilder,
     private equipoService: EquipoService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorHandler: ErrorHandlerService
   ){
     this.equipoForm = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -68,6 +71,7 @@ export class EquipoForm {
 
     this.isSubmitting = true;
     this.errorMessage = null; // 1. Limpiamos errores viejos
+    this.errorMessages = null;
     const equipoParaEnviar = {
       nombre: this.equipoForm.value.nombre,
       ciudad: this.equipoForm.value.ciudad,
@@ -87,8 +91,10 @@ export class EquipoForm {
         error: (err) => {
           console.error(err);
           this.isSubmitting = false;
-          if (err.error && err.error.message) {
-            this.errorMessage = err.error.message;
+          if (err.status === 400 || err.error) {
+            // Show list of validation messages if available
+            this.errorMessages = this.errorHandler.formatErrorList(err);
+            this.errorMessage = null;
           } else {
             this.errorMessage = 'Ocurrió un error inesperado. Intente nuevamente.';
           }
@@ -106,10 +112,10 @@ export class EquipoForm {
       this.isSubmitting = false;
 
       // --- LÓGICA ESTÁNDAR DE ERRORES ---
-      if (err.error && err.error.message) {
-        // CASO 1: Error controlado por tu GlobalExceptionHandler
-        // (Ej: "Ya existe ese nombre", "Falta el ID", etc.)
-        this.errorMessage = err.error.message;
+      if (err.status === 400 || err.error) {
+        // Mostrar lista de errores cuando el backend devuelva validaciones
+        this.errorMessages = this.errorHandler.formatErrorList(err);
+        this.errorMessage = null;
       } else if (err.status === 0) {
         // CASO 2: Servidor apagado o CORS (Lo que te pasó recién)
         this.errorMessage = 'No se pudo conectar con el servidor.';

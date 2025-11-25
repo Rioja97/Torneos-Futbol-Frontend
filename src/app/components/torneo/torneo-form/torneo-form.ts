@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Torneo } from '../../../models/torneo.model';
 import { TorneoService } from '../../../services/torneo-service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -21,12 +22,15 @@ export class TorneoFormComponent implements OnInit {
 
   isSubmitting = false;
   errorMessage = '';
+  errorMessages: string[] | null = null;
 
   constructor(
     private fb: FormBuilder,
     private torneoService: TorneoService,
     private router: Router,
     private route: ActivatedRoute
+  ,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +59,7 @@ export class TorneoFormComponent implements OnInit {
     if (this.torneoForm.invalid) return;
 
     this.isSubmitting = true;
+    this.errorMessages = null;
     const torneo: Torneo = this.torneoForm.value;
 
     const request = this.isEditing
@@ -67,11 +72,9 @@ export class TorneoFormComponent implements OnInit {
       console.error('Error del backend:', err);
       this.isSubmitting = false;
 
-      // --- LÓGICA ESTÁNDAR DE ERRORES ---
-      if (err.error && err.error.message) {
-        // CASO 1: Error controlado por tu GlobalExceptionHandler
-        // (Ej: "Ya existe ese nombre", "Falta el ID", etc.)
-        this.errorMessage = err.error.message;
+        if (err.status === 400 || err.error) {
+          this.errorMessages = this.errorHandler.formatErrorList(err);
+          this.errorMessage = '';
       } else if (err.status === 0) {
         // CASO 2: Servidor apagado o CORS (Lo que te pasó recién)
         this.errorMessage = 'No se pudo conectar con el servidor.';

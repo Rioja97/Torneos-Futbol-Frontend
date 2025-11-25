@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Equipo } from '../../../models/equipo.model';
 import { JugadorService } from '../../../services/jugador-service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { EquipoService } from '../../../services/equipo-service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -17,6 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class JugadorForm {
 
   errorMessage: string | null = null;
+  errorMessages: string[] | null = null;
   jugadorForm: FormGroup;
   isSubmitting = false;
   isEditing = false;
@@ -29,7 +31,8 @@ export class JugadorForm {
     private jugadorService: JugadorService,
     private equipoService: EquipoService, // <--- Inyectamos
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorHandler: ErrorHandlerService
   ) {
     this.jugadorForm = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -87,6 +90,7 @@ export class JugadorForm {
 
     this.isSubmitting = true;
     this.errorMessage = null; // 1. Limpiamos errores viejos
+    this.errorMessages = null;
     // Aquí no hace falta transformación manual compleja
     // porque el form ya tiene el formato { nombre: '...', equipoId: 5 }
     // que es lo que tu back espera.
@@ -105,10 +109,9 @@ export class JugadorForm {
       this.isSubmitting = false;
 
       // --- LÓGICA ESTÁNDAR DE ERRORES ---
-      if (err.error && err.error.message) {
-        // CASO 1: Error controlado por tu GlobalExceptionHandler
-        // (Ej: "Ya existe ese nombre", "Falta el ID", etc.)
-        this.errorMessage = err.error.message;
+      if (err.status === 400 || err.error) {
+        this.errorMessages = this.errorHandler.formatErrorList(err);
+        this.errorMessage = null;
       } else if (err.status === 0) {
         // CASO 2: Servidor apagado o CORS (Lo que te pasó recién)
         this.errorMessage = 'No se pudo conectar con el servidor.';

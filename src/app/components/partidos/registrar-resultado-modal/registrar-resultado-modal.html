@@ -52,11 +52,11 @@
             </td>
 
             <td>
-              <input type="number" formControlName="goles" class="form-control form-control-sm" min="0" (change)="stat.get('participo')?.setValue(true)">
+              <input type="number" max="10" formControlName="goles" class="form-control form-control-sm" min="0" (change)="stat.get('participo')?.setValue(true)">
             </td>
 
             <td>
-              <input type="number" formControlName="asistencias" class="form-control form-control-sm" min="0" (change)="stat.get('participo')?.setValue(true)">
+              <input type="number" max="10" formControlName="asistencias" class="form-control form-control-sm" min="0" (change)="stat.get('participo')?.setValue(true)">
             </td>
 
             <td>

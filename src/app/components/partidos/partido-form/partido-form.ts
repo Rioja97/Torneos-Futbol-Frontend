@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Partido } from '../../../models/partido.model';
 import { PartidoService } from '../../../services/partido-service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { EquipoService } from '../../../services/equipo-service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -27,13 +28,15 @@ export class PartidoFormComponent implements OnInit {
   partidoId: number | null = null;
   torneoId: number | null = null; 
 errorMessage: any;
+errorMessages: string[] | null = null;
 
   constructor(
     private equipoService: EquipoService,
     private partidoService: PartidoService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private errorHandler: ErrorHandlerService
   ) {
     this.partidoForm = this.fb.group({
       fecha: ['', Validators.required],
@@ -72,7 +75,8 @@ errorMessage: any;
 
   onSubmit() {
     if (this.partidoForm.invalid || this.isSubmitting) return;
-        this.isSubmitting = true;
+      this.isSubmitting = true;
+      this.errorMessages = null;
 
 
     const val = this.partidoForm.value;
@@ -93,10 +97,9 @@ errorMessage: any;
       this.isSubmitting = false;
 
       // --- LÓGICA ESTÁNDAR DE ERRORES ---
-      if (err.error && err.error.message) {
-        // CASO 1: Error controlado por tu GlobalExceptionHandler
-        // (Ej: "Ya existe ese nombre", "Falta el ID", etc.)
-        this.errorMessage = err.error.message;
+      if (err.status === 400 || err.error) {
+        this.errorMessages = this.errorHandler.formatErrorList(err);
+        this.errorMessage = null;
       } else if (err.status === 0) {
         // CASO 2: Servidor apagado o CORS (Lo que te pasó recién)
         this.errorMessage = 'No se pudo conectar con el servidor.';
@@ -109,13 +112,28 @@ errorMessage: any;
     } else {
         // Creación: Usa el endpoint del torneo /torneos/{id}/partidos
         if (this.torneoId) {
-            this.partidoService.crearPartidoEnTorneo(this.torneoId, partidoParaEnviar).subscribe({
-                next: () => this.atras(),
-                error: (err) => {
-              console.error(err)
+          this.partidoService.crearPartidoEnTorneo(this.torneoId, partidoParaEnviar).subscribe({
+            next: () => this.atras(),
+            error: (err: HttpErrorResponse) => {
+              console.error('Error del backend (crear):', err);
               this.isSubmitting = false;
+
+              // Mostrar errores de validación devueltos por el backend (400)
+              if (err.status === 400 || err.error) {
+                this.errorMessages = this.errorHandler.formatErrorList(err);
+                this.errorMessage = null;
+                return;
+              }
+
+              if (err.status === 0) {
+                this.errorMessage = 'No se pudo conectar con el servidor.';
+                return;
+              }
+
+              // Error inesperado
+              this.errorMessage = 'Ocurrió un error inesperado. Intente nuevamente.';
             }
-            });
+          });
         } else {
             console.error("No tengo el ID del torneo para crear el partido");
         }

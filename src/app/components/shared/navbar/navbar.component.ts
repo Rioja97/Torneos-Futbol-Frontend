@@ -6,73 +6,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <nav class="navbar">
-      <div class="navbar-content">
-        <h1 class="navbar-title">⚽ Torneo Fútbol</h1>
-        <button class="btn-home" (click)="irAlHome()" title="Volver al Home">
-          🏠 Inicio
-        </button>
-      </div>
-    </nav>
-  `,
-  styles: [`
-    .navbar {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 1rem 0;
-      box-shadow: var(--shadow-md);
-      margin-bottom: 2rem;
-    }
-
-    .navbar-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .navbar-title {
-      margin: 0;
-      font-size: 1.75rem; /* Aumentado de 1.5rem */
-      font-weight: 700;
-    }
-
-    .btn-home {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 2px solid white;
-      padding: 0.75rem 2rem; /* Aumentado padding */
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      font-weight: 600; /* Aumentado de 500 */
-      transition: var(--transition);
-      font-size: 1.125rem; /* Aumentado de 0.95rem */
-    }
-
-    .btn-home:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    @media (max-width: 768px) {
-      .navbar-content {
-        padding: 0 1rem;
-      }
-
-      .navbar-title {
-        font-size: 1.2rem;
-      }
-
-      .btn-home {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-      }
-    }
-  `]
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   constructor(private router: Router) {}

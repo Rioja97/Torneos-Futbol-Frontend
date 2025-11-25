@@ -48,8 +48,15 @@
             Debes asignar un equipo.
         </div>
       </div>
+      <div *ngIf="errorMessages?.length" class="alert-error">
+        <strong>⚠️ Errores:</strong>
+        <ul>
+          <li *ngFor="let e of errorMessages">{{ e }}</li>
+        </ul>
+      </div>
+
       <div *ngIf="errorMessage" class="alert-error">
-  ⚠️    {{ errorMessage }}
+        ⚠️ {{ errorMessage }}
       </div>
 
       <div class="actions">

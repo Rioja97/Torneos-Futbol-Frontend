@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Entrenador } from '../../../models/entrenador.model';
 import { Equipo } from '../../../models/equipo.model';
 import { EntrenadorService } from '../../../services/entrenador-service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { EquipoService } from '../../../services/equipo-service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -24,13 +25,15 @@ export class EntrenadorFormComponent implements OnInit {
 
   isSubmitting = false;
   errorMessage = '';
+  errorMessages: string[] | null = null;
 
   constructor(
     private fb: FormBuilder,
     private entrenadorService: EntrenadorService,
     private equipoService: EquipoService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +72,7 @@ cargarEntrenador(id: number) {
     if (this.entrenadorForm.invalid) return;
 
     this.isSubmitting = true;
+    this.errorMessages = null;
 
     const formValue = this.entrenadorForm.value;
 
@@ -92,10 +96,10 @@ cargarEntrenador(id: number) {
       this.isSubmitting = false;
 
       // --- LÓGICA ESTÁNDAR DE ERRORES ---
-      if (err.error && err.error.message) {
-        // CASO 1: Error controlado por tu GlobalExceptionHandler
-        // (Ej: "Ya existe ese nombre", "Falta el ID", etc.)
-        this.errorMessage = err.error.message;
+      if (err.status === 400 || err.error) {
+        // Mostrar lista de validaciones cuando estén presentes
+        this.errorMessages = this.errorHandler.formatErrorList(err);
+        this.errorMessage = '';
       } else if (err.status === 0) {
         // CASO 2: Servidor apagado o CORS (Lo que te pasó recién)
         this.errorMessage = 'No se pudo conectar con el servidor.';

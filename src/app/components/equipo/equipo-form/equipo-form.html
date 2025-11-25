@@ -26,17 +26,17 @@
         <input type="number" id="capacidadEstadio" formControlName="capacidadEstadio">
       </div>
 
-      <div *ngIf="errorMessage" class="alert-error">
-  ⚠️    {{ errorMessage }}
-      </div>
+        <div *ngIf="errorMessages?.length" class="alert-error">
+          <strong>⚠️ Errores:</strong>
+          <ul>
+            <li *ngFor="let e of errorMessages">{{ e }}</li>
+          </ul>
+        </div>
 
       <div class="actions">
         <button type="button" class="btn-cancel" routerLink="/equipos">Cancelar</button>
         
-        <div *ngIf="errorMessage" class="alert-error">
-          <span class="icon">⚠️</span> 
-          {{ errorMessage }}
-        </div>
+        <!-- Mensaje de error mostrado arriba, se evita duplicar aquí -->
         <button type="submit" class="btn-save" [disabled]="equipoForm.invalid || isSubmitting">
           {{ isEditing ? 'Actualizar' : 'Guardar' }}
         </button>

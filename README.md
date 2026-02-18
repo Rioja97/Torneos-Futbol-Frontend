@@ -1,59 +1,24 @@
-# TorneoFutbolFrontend
+# Torneos de Futbol - Frontend (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+> Interfaz de usuario para la gestión de ligas y torneos de fútbol, conectada a la API REST de Spring Boot.
 
-## Development server
+## 📷 Vistas Previas
+<img width="510" height="558" alt="image" src="https://github.com/user-attachments/assets/c018e6c1-931e-4284-b5b7-91600d18f7a1" />
+<img width="904" height="570" alt="image" src="https://github.com/user-attachments/assets/0b292759-852a-4fff-80f0-962e7bd89c20" />
+<img width="764" height="599" alt="image" src="https://github.com/user-attachments/assets/86ffcf8d-3e1e-4bf6-a299-18237b3090ec" />
 
-To start a local development server, run:
 
-```bash
-ng serve
-```
+## 🛠️ Stack Tecnológico
+* **Framework:** Angular (Versión X)
+* **Lenguaje:** TypeScript, HTML5, CSS3
+* **Estilos/UI:** [Aquí pon Bootstrap, Angular Material, Tailwind o lo que hayas usado]
+* **Consumo de API:** HttpClient (RxJS)
+* **Autenticación:** Interceptores JWT
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Instalación y Ejecución
+1. Clonar el repositorio.
+2. Instalar dependencias: `npm install`
+3. Ejecutar el servidor de desarrollo: `ng serve`
+4. Abrir en el navegador: `http://localhost:4200`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+*Nota: Requiere tener el backend de Spring Boot corriendo simultáneamente para el consumo de datos.*

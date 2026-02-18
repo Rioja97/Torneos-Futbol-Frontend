@@ -11,10 +11,9 @@
 ## 🛠️ Stack Tecnológico
 * **Framework:** Angular (Versión X)
 * **Lenguaje:** TypeScript, HTML5, CSS3
-* **Estilos/UI:** [Aquí pon Bootstrap, Angular Material, Tailwind o lo que hayas usado]
+* **Estilos/UI:** Angular Material
 * **Consumo de API:** HttpClient (RxJS)
 * **Autenticación:** Interceptores JWT
-* **Estilos/UI:** Angular Material
 
 ## 🚀 Instalación y Ejecución
 1. Clonar el repositorio.

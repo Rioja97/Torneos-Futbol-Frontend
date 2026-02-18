@@ -14,6 +14,7 @@
 * **Estilos/UI:** [Aquí pon Bootstrap, Angular Material, Tailwind o lo que hayas usado]
 * **Consumo de API:** HttpClient (RxJS)
 * **Autenticación:** Interceptores JWT
+* **Estilos/UI:** Angular Material
 
 ## 🚀 Instalación y Ejecución
 1. Clonar el repositorio.
